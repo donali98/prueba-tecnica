@@ -5,12 +5,16 @@
 el producto tiene como código de barra en la base de datos el correlativo *0286283287073*, al buscar el mismo registro en el endpoint de la API el resultado del campo de barcode será de *286283287073*, si se quisiera realizar operaciones con éste último no se podría porque es un valor distinto a su barcode original.
 
 **UPDATE**
-Problema planteado arriba resuelto, solo cambió de tipo de dato en la migración en barcode y una línea en el método `show`, se puede ver en éste último commit
+Problema planteado arriba resuelto, solo cambió de tipo de dato en la migración en barcode y una línea en el método `show`. En consecuencia también cambió el archivo dump de la base de datos.
 
 **Motor de bases de datos utilizado:** MySQL
+
 **Ubicación del dump de la base:** database\ecommercedump.sql
+
 **Nombre de la base de datos:** ecommerce 
+
 **Servidor Web:** Apache
+
 **Archivo exportado de Postman con los endpoints y documentación:** En la raíz del proyecto, con el nombre *Product API.postman_collection*
 
 ## Instalación

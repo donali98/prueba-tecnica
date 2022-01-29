@@ -168,3 +168,5 @@
 192.168.0.13 - - [29/Jan/2022:12:41:21 -0600] "GET /api/products/0048341600817 HTTP/1.1" 200 300 "-" "PostmanRuntime/7.29.0"
 192.168.0.13 - - [29/Jan/2022:13:11:16 -0600] "GET /api/products/ HTTP/1.1" 200 5467 "-" "PostmanRuntime/7.29.0"
 192.168.0.13 - - [29/Jan/2022:13:11:29 -0600] "GET /api/products/166513290090 HTTP/1.1" 200 302 "-" "PostmanRuntime/7.29.0"
+192.168.0.13 - - [29/Jan/2022:13:15:44 -0600] "GET /api/products/ HTTP/1.1" 200 5467 "-" "PostmanRuntime/7.29.0"
+192.168.0.13 - - [29/Jan/2022:13:15:50 -0600] "GET /api/products/183416677889 HTTP/1.1" 200 308 "-" "PostmanRuntime/7.29.0"
