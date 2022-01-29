@@ -59,13 +59,13 @@ class ProductController extends Controller
     /**
      * Busca un producto por su id o barcode
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         try {
-            $product = Product::where('barcode',$id)->first();
+            $product = Product::where('barcode',strval( $id));
             return response()->json([Constants::SUCCESS_SINGLE_KEY => $product], 200);
         } catch (ModelNotFoundException $notFound) {
             return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
