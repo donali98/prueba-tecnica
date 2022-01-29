@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->unsignedDecimal('price', 8, 2);
             $table->string('description', 7000)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -83,9 +84,27 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateRequest $request, $id)
     {
-        //
+        try {
+            $productToBeUpdated = Product::findOrFail($id);
+
+            $productToBeUpdated->name = $request->name ? $request->name : $productToBeUpdated->name;
+            $productToBeUpdated->url = $request->url ? $request->url : $productToBeUpdated->url;
+            $productToBeUpdated->price = $request->price ? $request->price : $productToBeUpdated->price;
+            $productToBeUpdated->description = $request->description ? $request->description : $productToBeUpdated->description;
+            
+            if ($productToBeUpdated->save())
+                return response()->json(['product' => $productToBeUpdated], 200);
+            else return response()->json(['error' => 'Algo ha salido mal, intentar más tarde'], 400);
+
+        } catch (ModelNotFoundException $notFound) {
+            return response()->json(['error' => $notFound->getMessage()], 404);
+        } catch (QueryException $dbError) {
+            return response()->json(['error' => $dbError->getMessage()], 500);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -96,6 +115,19 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $productToBeDeleted = Product::findOrFail($id);
+            if($productToBeDeleted->delete())
+                return response()->json(['product' => $productToBeDeleted], 200);
+            else return response()->json(['error' => 'Algo ha salido mal, intentar más tarde'], 400);
+            
+
+        } catch (ModelNotFoundException $notFound) {
+            return response()->json(['error' => $notFound->getMessage()], 404);
+        } catch (QueryException $dbError) {
+            return response()->json(['error' => $dbError->getMessage()], 500);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }
