@@ -1,6 +1,9 @@
 ﻿# Prueba técnica
 
 ## Generalidades
+**IMPORTANTE** Algunos registros en la base, cuando se generan con el seeder comienzan con 0, al ejecutar el endpoint que obtiene todos, probablemente por la conversión de entero a string, tales ceros desaparecerán y mostrará sólo los dígitos diferentes a 0, ejemplo:
+el producto tiene como código de barra en la base de datos el correlativo *0286283287073*, al buscar el mismo registro en el endpoint de la API el resultado del campo de barcode será de *286283287073*, si se quisiera realizar operaciones con éste último no se podría porque es un valor distinto a su barcode original.
+
 **Motor de bases de datos utilizado:** MySQL
 **Ubicación del dump de la base:** database\ecommercedump.sql
 **Nombre de la base de datos:** ecommerce 
