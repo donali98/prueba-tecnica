@@ -65,7 +65,7 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $product = Product::where('barcode',strval( $id))->get();
+            $product = Product::findOrFail($id);
             return response()->json([Constants::SUCCESS_SINGLE_KEY => $product], 200);
         } catch (ModelNotFoundException $notFound) {
             return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
