@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los productos
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,9 +32,9 @@ class ProductController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Crea y guarda un nuevo producto
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ProductCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProductCreateRequest $request)
@@ -60,7 +60,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Busca un producto por su id o barcode
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -71,33 +71,35 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             return response()->json(['product' => $product], 200);
         } catch (ModelNotFoundException $notFound) {
-            return response()->json(['error' => $notFound->getMessage()], 404);
+            return response()->json(['error' => 'No se han encontrado resultados'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Error de servidor'], 500);
         }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modifica los datos de un producto
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  @param  \App\Http\Requests\ProductUpdateRequest $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function update(ProductUpdateRequest $request, $id)
     {
         try {
             $productToBeUpdated = Product::findOrFail($id);
-
+            /*
+                Si viene en la request el parametro a modificar, se usa el mismo,
+                de lo contrario se conserva el antiguo valor
+             */
             $productToBeUpdated->name = $request->name ? $request->name : $productToBeUpdated->name;
             $productToBeUpdated->url = $request->url ? $request->url : $productToBeUpdated->url;
             $productToBeUpdated->price = $request->price ? $request->price : $productToBeUpdated->price;
             $productToBeUpdated->description = $request->description ? $request->description : $productToBeUpdated->description;
-            
+
             if ($productToBeUpdated->save())
                 return response()->json(['product' => $productToBeUpdated], 200);
             else return response()->json(['error' => 'Algo ha salido mal, intentar más tarde'], 400);
-
         } catch (ModelNotFoundException $notFound) {
             return response()->json(['error' => $notFound->getMessage()], 404);
         } catch (QueryException $dbError) {
@@ -108,22 +110,42 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina (mediante softDelete) un producto específico por su id (o barcode)
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
             $productToBeDeleted = Product::findOrFail($id);
-            if($productToBeDeleted->delete())
+            if ($productToBeDeleted->delete())
                 return response()->json(['product' => $productToBeDeleted], 200);
             else return response()->json(['error' => 'Algo ha salido mal, intentar más tarde'], 400);
-            
-
         } catch (ModelNotFoundException $notFound) {
             return response()->json(['error' => $notFound->getMessage()], 404);
+        } catch (QueryException $dbError) {
+            return response()->json(['error' => $dbError->getMessage()], 500);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    /**
+     * Encontrar el producto por nombre,descrip. y código de barrar.
+     *
+     * @param  string  $param
+     * @return \Illuminate\Http\Response
+     */
+    public function findByParam($param)
+    {
+        try {
+            $products = Product::where('name', 'like', '%' . $param . '%')
+                ->orWhere('barcode', 'like', '%' . $param . '%')
+                ->orWhere('description', 'like', '%' . $param . '%')
+                ->paginate(15);
+            return response()->json(['products' => $products], 200);
+        } catch (ModelNotFoundException $notFound) {
+            return response()->json(['error' => 'No se han encontrado resultados'], 404);
         } catch (QueryException $dbError) {
             return response()->json(['error' => $dbError->getMessage()], 500);
         } catch (Exception $e) {

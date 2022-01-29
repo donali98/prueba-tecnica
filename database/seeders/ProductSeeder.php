@@ -8,8 +8,7 @@ use Illuminate\Database\Seeder;
 class ProductSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
+     * Genera 50 Productos
      * @return void
      */
     public function run()

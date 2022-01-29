@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Clase que representa el modelo Producto 
+ *
+ * @author  Alejandro Hernández
+ */
 class Product extends Model
 {
     use HasFactory,SoftDeletes;

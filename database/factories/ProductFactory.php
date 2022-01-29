@@ -5,11 +5,24 @@ namespace Database\Factories;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Clase heredada de Factory que será utilizada para la 
+ * creación de registros aleatorios en la db.
+ *
+ * @author  Alejandro Hernández
+ */
 class ProductFactory extends Factory
 {
-    protected $model = Product::class;
     /**
-     * Define the model's default state.
+     * Variable que representa el modelo a emplear
+     * para generar los registros aleatorios
+     *
+     * @var string
+     */
+    protected $model = Product::class;
+    
+    /**
+     * Define la forma específica que deben tener los campos a generar
      *
      * @return array
      */
@@ -17,9 +30,9 @@ class ProductFactory extends Factory
     {
         return [
             'barcode' => $this->faker->ean13(),
-            'name' => $this->faker->name(),
-            'url' =>$this->faker->imageUrl(),
-            'price' => $this->faker->randomFloat(2, 0, 10000),
+            'name' => $this->faker->unique()->words(2, true),
+            'url' => $this->faker->imageUrl(),
+            'price' => $this->faker->randomFloat(2, 0.01, 9999.99),
             'description' => $this->faker->sentence(),
 
         ];
