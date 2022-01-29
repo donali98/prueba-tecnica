@@ -131,3 +131,7 @@
 192.168.0.13 - - [29/Jan/2022:10:03:10 -0600] "GET /api/products/0279688406095 HTTP/1.1" 200 276 "-" "PostmanRuntime/7.29.0"
 192.168.0.13 - - [29/Jan/2022:10:03:19 -0600] "GET /api/find-product/Nintend HTTP/1.1" 200 832 "-" "PostmanRuntime/7.29.0"
 192.168.0.13 - - [29/Jan/2022:10:03:24 -0600] "GET /api/find-product/nInTendo HTTP/1.1" 200 836 "-" "PostmanRuntime/7.29.0"
+192.168.0.13 - - [29/Jan/2022:10:34:05 -0600] "GET /api/products/0279688406095 HTTP/1.1" 404 43 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+192.168.0.13 - - [29/Jan/2022:10:34:56 -0600] "-" 408 - "-" "-"
+192.168.0.13 - - [29/Jan/2022:10:54:21 -0600] "GET /api/products HTTP/1.1" 200 522 "-" "PostmanRuntime/7.29.0"
+192.168.0.13 - - [29/Jan/2022:10:55:12 -0600] "GET /api/products/0279688406095 HTTP/1.1" 404 43 "-" "PostmanRuntime/7.29.0"

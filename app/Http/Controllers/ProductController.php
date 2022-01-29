@@ -22,10 +22,6 @@ class ProductController extends Controller
         try {
 
             return response()->json([Constants::SUCCESS_PLURAL_KEY, Product::paginate(15)], 200);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
-        } catch (QueryException $dbError) {
-            return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (Exception $e) {
             return response()->json([Constants::ERROR_KEY => Constants::SERVER_ERROR_MESSAGE], 500);
         }
@@ -102,12 +98,11 @@ class ProductController extends Controller
                 return response()->json([Constants::SUCCESS_SINGLE_KEY => $productToBeUpdated], 200);
             else return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (ModelNotFoundException $notFound) {
-            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);           
+            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
         } catch (QueryException $dbError) {
             return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (Exception $e) {
             return response()->json([Constants::ERROR_KEY => Constants::SERVER_ERROR_MESSAGE], 500);
-
         }
     }
 
@@ -125,7 +120,7 @@ class ProductController extends Controller
                 return response()->json([Constants::SUCCESS_SINGLE_KEY => $productToBeDeleted], 200);
             else return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (ModelNotFoundException $notFound) {
-            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);                       
+            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
         } catch (QueryException $dbError) {
             return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (Exception $e) {
@@ -147,7 +142,7 @@ class ProductController extends Controller
                 ->paginate(15);
             return response()->json([Constants::SUCCESS_PLURAL_KEY => $products], 200);
         } catch (ModelNotFoundException $notFound) {
-            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);                       
+            return response()->json([Constants::ERROR_KEY => Constants::NOT_FOUND_MESSAGE], 404);
         } catch (QueryException $dbError) {
             return response()->json([Constants::ERROR_KEY => Constants::DB_ERROR_MESSAGE], 400);
         } catch (Exception $e) {

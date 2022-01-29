@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "c6667552-830c-4d1c-b1a3-a4b899b1c819",
+		"name": "Product API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://product-api.win/api/products",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "# Obtener todos\n**Descripción:** Obtiene la información de todos los productos \n**Estructura y ejemplo:** http://product-api.win/api/products/\n\n**Respuestas**\n\n1. **Código HTTP 200:** Información de todos los productos existentes (omitiendo borrados).\n2. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener producto por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://product-api.win/api/products/0279688406095",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"products",
+						"0279688406095"
+					]
+				},
+				"description": "# Obtener por id\n**Método:** GET\n\n**Descripción:** Obtiene la información de un producto en específico,mandando como parámetro el id, en este caso, sería el código de barra de dichoo producto\n\n**Estructura:** http://product-api.win/api/products/[barcode]\n\n**Parámetros:**\n- barcode(texto)**(obligatorio)**: El id o código de barras del producto a consultar.\n\n**Ejemplo:** http://product-api.win/api/products/0279688406095\n\n**Respuestas**\n\n1. **Código HTTP 200:** Información del producto consultado.\n2. **Código HTTP 404:** Respuesta cuando no se encuentra un producto con el id recibido.\n3. **Código HTTP 400:** Respuesta cuando hubo un error a nivel de base de datos\n4. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar producto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "barcode",
+							"value": "1134330056504",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Nintendo New 3DS XL",
+							"type": "default"
+						},
+						{
+							"key": "url",
+							"value": "https://via.placeholder.com/640x480.png/0077dd?text=quamda",
+							"type": "default"
+						},
+						{
+							"key": "price",
+							"value": "44.99",
+							"type": "default"
+						},
+						{
+							"key": "description",
+							"value": "Lorem ipsum",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://product-api.win/api/products",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "# Guardar producto\n\n**Método:** POST\n\n**Descripción:** Guarda un producto en la base de datos.\n\n**Estructura:** http://product-api.win/api/products/\n\n**Parámetros:**\n- barcode(texto)**(obligatorio)**: El código de barras del producto.\n- name(string)**(obligatorio)**: El nombre del producto.\n- url (string): URL de la imágen del producto.\n- price(float)**(obligatorio)**: Precio del producto\n- description(string): descripción del producto.\n\n**Respuestas**\n1. **Código HTTP 200:** Información del producto recién creado.\n2. **Código HTTP 400:** Respuesta cuando hubo un error a nivel de base de datos\n4. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar producto",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Nintendo 2DS",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "Nintendo 3DS",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "price",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Lorem ipsum",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://product-api.win/api/products/0279688406095",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"products",
+						"0279688406095"
+					]
+				},
+				"description": "# Modificar producto\n\n**Método:** PUT\n\n**Descripción:** Modifica un producto existente en la base de datos.\n\n**Estructura:** http://product-api.win/api/products/[barcode]\n\n**Parámetros:**\n- barcode(texto)**(obligatorio)(query string)**: El código de barras del producto.\n- name(string): El nombre del producto.\n- url (string): URL de la imágen del producto.\n- price(float) Precio del producto\n- description(string): descripción del producto.\n\n**Respuestas**\n1. **Código HTTP 200:** Información del producto recién actualizado.\n2. **Código HTTP 400:** Respuesta cuando hubo un error a nivel de base de datos\n3. **Código HTTP 404:** Respuesta cuando no se encuentra un producto con el id recibido.\n4. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://product-api.win/api/products/2810081170060",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"products",
+						"2810081170060"
+					]
+				},
+				"description": "# Eliminar producto\n\n**Método:** DELETE\n\n**Descripción:** Elimina (cambia de estado gracias al softDelete) un producto existente en la base de datos.\n\n**Estructura:** http://product-api.win/api/products/[barcode]\n\n**Parámetros:**\n- barcode(texto)**(obligatorio)(query string)**: El código de barras del producto.\n\n**Respuestas**\n1. **Código HTTP 200:** Información del producto recién eliminado.\n2. **Código HTTP 400:** Respuesta cuando hubo un error a nivel de base de datos\n3. **Código HTTP 404:** Respuesta cuando no se encuentra un producto con el id recibido.\n4. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener producto por parámetro",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Nintendo",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://product-api.win/api/find-product/nInTendo",
+					"protocol": "http",
+					"host": [
+						"product-api",
+						"win"
+					],
+					"path": [
+						"api",
+						"find-product",
+						"nInTendo"
+					]
+				},
+				"description": "# Buscar producto por otros parámetros\n\n**Método:** GET\n\n**Descripción:** Obtiene los productos que cumplan con la condición de que el texto ingresado coincida total o parcialmente con los campos **barcode,name y description**.\n\n**Estructura:** http://product-api.win/api/products/[text]\n\n**Parámetros:**\n- text(texto)**(obligatorio)(query string)**: Texto que se busca coincidir con los campos de barcode, name y description.\n\n**Respuestas**\n1. **Código HTTP 200:** Información del producto o productos que coinciden total o parcialmente con el parámetro ingresado.\n2. **Código HTTP 400:** Respuesta cuando hubo un error a nivel de base de datos\n3. **Código HTTP 404:** Respuesta cuando no coincide un producto con el parámetro indicado.\n4. **Código HTTP 500:** Respuesta cuando la API cae en una excepción no controlada"
+			},
+			"response": []
+		}
+	]
+}
