@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
 use App\Models\Product;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -20,9 +21,7 @@ class ProductController extends Controller
     {
         try {
 
-            return response()->json(['products',Product::paginate(15)],200);
-            
-
+            return response()->json(['products', Product::paginate(15)], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         } catch (QueryException $dbError) {
@@ -40,7 +39,23 @@ class ProductController extends Controller
     public function store(ProductCreateRequest $request)
     {
 
-        
+        try {
+
+            $product = new Product([
+                'barcode' => $request->barcode,
+                'name' => $request->name,
+                'url' => $request->url,
+                'price' => $request->price,
+                'description' => $request->description,
+            ]);
+
+            $product->save();
+            return response()->json(['product' => $product], 200);
+        } catch (QueryException $dbError) {
+            return response()->json(['error' => $dbError->getMessage()], 500);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -51,7 +66,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+            return response()->json(['product' => $product], 200);
+        } catch (ModelNotFoundException $notFound) {
+            return response()->json(['error' => $notFound->getMessage()], 404);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

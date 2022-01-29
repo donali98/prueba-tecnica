@@ -14,11 +14,11 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->string('barcode',250)->primary();
-            $table->string('name',2000);
-            $table->string('url',7000);
-            $table->unsignedDecimal('price',8,2);
-            $table->string('description',7000); 
+            $table->string('barcode', 250)->primary();
+            $table->string('name', 2000);
+            $table->string('url', 7000)->nullable();
+            $table->unsignedDecimal('price', 8, 2);
+            $table->string('description', 7000)->nullable();
             $table->timestamps();
         });
     }

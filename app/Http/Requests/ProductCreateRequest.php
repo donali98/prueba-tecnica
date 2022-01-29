@@ -43,9 +43,4 @@ class ProductCreateRequest extends FormRequest
         ];
     }
 
-    // protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    // {
-    
-    //     throw new \Illuminate\Validation\ValidationException(response()->json($validator->errors(), 422));
-    // }
 }
